@@ -1,6 +1,6 @@
 # AI Writing Assistant Chrome Extension
 
-A smart Chrome extension that provides AI-powered autocomplete suggestions in Google Docs, designed to work seamlessly alongside Grammarly and other writing tools.
+A smart Chrome extension that provides AI-powered autocomplete suggestions in Google Docs, designed to work seamlessly alongside Grammarly and other writing tools. Built with TypeScript and modern build tools.
 
 ## Goal
 
@@ -14,6 +14,8 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 - **Context-Aware**: Suggestions based on your current writing context and style
 - **Powered by ChatGPT**: Leverages OpenAI's advanced language model
 - **Real-time Analysis**: Monitors text changes and provides suggestions as you write
+- **TypeScript**: Full type safety and modern development experience
+- **Comprehensive Testing**: Unit tests with Jest and comprehensive test coverage
 
 ## How It Works
 
@@ -26,10 +28,19 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 ## Technical Implementation
 
 ### Architecture
+- **TypeScript**: Full type safety and modern JavaScript features
 - **Manifest V3**: Modern Chrome extension architecture
+- **Webpack**: Module bundling and build optimization
 - **Content Scripts**: Injected into Google Docs pages
 - **Background Service Worker**: Handles extension lifecycle and communication
 - **Chrome Storage API**: Securely stores user preferences and API keys
+
+### Build System
+- **TypeScript Compiler**: Strict type checking and modern ES2020 features
+- **Webpack 5**: Modern bundling with optimization
+- **ESLint**: Code quality and consistency
+- **Jest**: Comprehensive unit testing framework
+- **Source Maps**: Debugging support for production builds
 
 ### Google Docs Compatibility
 - Targets `[contenteditable="true"][role="textbox"]` elements
@@ -43,64 +54,172 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 - Minimal DOM manipulation to prevent conflicts
 - Respects existing text selection and cursor state
 
-## Installation & Setup
+## Development Setup
 
 ### Prerequisites
-- Chrome browser (version 88+)
-- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
+- **Node.js**: Version 16+ (LTS recommended)
+- **npm**: Version 8+ (comes with Node.js)
+- **Chrome browser**: Version 88+
+- **OpenAI API key**: [Get one here](https://platform.openai.com/api-keys)
 
-### Development Setup
-1. Clone this repository
+### Quick Start
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd ai-writing-assistant
+
+# Install dependencies
+npm install
+
+# Build the extension
+npm run build
+
+# Run tests
+npm test
+
+# Development mode with watch
+npm run watch
+```
+
+### Build Commands
+```bash
+# Production build
+npm run build
+
+# Development build
+npm run build:dev
+
+# Watch mode for development
+npm run watch
+
+# Clean build directory
+npm run clean
+```
+
+### Testing Commands
+```bash
+# Run all tests
+npm test
+
+# Watch mode for tests
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+
+# Type checking only
+npm run type-check
+
+# Lint code
+npm run lint
+```
+
+### Scripts
+```bash
+# Build scripts
+./scripts/build.sh          # Production build
+./scripts/build.sh --dev    # Development build
+
+# Test scripts
+./scripts/test.sh           # Run tests
+./scripts/test.sh --watch   # Watch mode
+./scripts/test.sh --coverage # With coverage
+./scripts/test.sh --verbose # Verbose output
+```
+
+## Installation & Setup
+
+### Development Installation
+1. Build the extension: `npm run build`
 2. Open Chrome and go to `chrome://extensions/`
 3. Enable "Developer mode" (toggle in top right)
-4. Click "Load unpacked" and select the project folder
+4. Click "Load unpacked" and select the `dist` folder
 5. Click the extension icon and enter your OpenAI API key
 
 ### Production Installation
-1. Package the extension (zip all files)
-2. Submit to Chrome Web Store (recommended)
-3. Or distribute the .crx file directly
+1. Build for production: `npm run build`
+2. Package the `dist` folder contents
+3. Submit to Chrome Web Store (recommended)
+4. Or distribute the .crx file directly
 
 ## File Structure
 
 ```
-├── manifest.json          # Extension configuration
-├── content.js            # Main content script for Google Docs
-├── popup.html            # Extension popup interface
-├── popup.js              # Popup functionality
-├── background.js         # Service worker
-├── styles.css            # Styling for suggestion box
-├── icons/                # Extension icons
-└── README.md             # This file
+├── src/                    # TypeScript source files
+│   ├── content.ts         # Main content script
+│   ├── popup.ts           # Popup functionality
+│   ├── background.ts      # Service worker
+│   ├── types.ts           # Type definitions
+│   ├── popup.html         # Extension popup interface
+│   └── styles.css         # Styling for suggestion box
+├── tests/                  # Test files
+│   ├── setup.ts           # Jest test setup
+│   ├── content.test.ts    # Content script tests
+│   ├── popup.test.ts      # Popup tests
+│   ├── background.test.ts # Background script tests
+│   └── utils.test.ts      # Utility function tests
+├── dist/                   # Built extension (generated)
+├── scripts/                # Build and test scripts
+├── manifest.json           # Extension configuration
+├── package.json            # Dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+├── webpack.config.js      # Webpack build configuration
+├── jest.config.js         # Jest test configuration
+├── .eslintrc.js           # ESLint configuration
+└── README.md               # This file
 ```
 
 ## Configuration
 
-### API Key Setup
-1. Get your OpenAI API key from [OpenAI Platform](https://platform.openai.com/api-keys)
-2. Click the extension icon in Chrome
-3. Enter your API key in the popup
-4. Click "Test API Key" to verify
-5. Save settings
+### TypeScript Configuration
+- **Target**: ES2020 for modern browser support
+- **Strict Mode**: Enabled for type safety
+- **Source Maps**: Generated for debugging
+- **Declaration Files**: Generated for type definitions
 
-### Toggle Options
-- **Enable Autocomplete**: Turn the entire feature on/off
-- **Show Suggestions**: Control suggestion visibility
+### Webpack Configuration
+- **Entry Points**: Separate bundles for content, popup, and background
+- **TypeScript Loader**: Handles .ts file compilation
+- **Copy Plugin**: Copies static assets to dist folder
+- **Source Maps**: Generated for debugging
 
-## Usage
+### Jest Configuration
+- **Test Environment**: jsdom for DOM testing
+- **TypeScript Support**: ts-jest for .ts file testing
+- **Coverage**: HTML, LCOV, and text reports
+- **Setup Files**: Custom test environment configuration
 
-### In Google Docs
-1. Open any Google Doc
-2. Start typing (extension activates after 10+ characters)
-3. Wait for suggestions to appear below your cursor
-4. Use Tab to accept the first suggestion
-5. Use arrow keys to navigate suggestions
-6. Click any suggestion to accept it
+## Testing
 
-### Keyboard Shortcuts
-- **Tab**: Accept first suggestion
-- **Arrow Down/Up**: Navigate through suggestions
-- **Escape**: Hide suggestions
+### Test Coverage
+- **Content Script**: Text monitoring, AI suggestions, DOM manipulation
+- **Popup**: Settings management, API key validation, form handling
+- **Background**: Service worker lifecycle, message handling
+- **Utilities**: HTML escaping, validation, error handling
+
+### Running Tests
+```bash
+# Run all tests
+npm test
+
+# Watch mode for development
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+
+# Run specific test file
+npm test -- content.test.ts
+
+# Run tests with verbose output
+npm test -- --verbose
+```
+
+### Test Structure
+- **Unit Tests**: Individual function and class testing
+- **Integration Tests**: Component interaction testing
+- **Mock Objects**: Chrome API and DOM mocking
+- **Test Utilities**: Common test setup and helpers
 
 ## API Integration
 
@@ -111,89 +230,72 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 - **System Prompt**: Optimized for writing continuation
 
 ### Request Format
-```json
-{
-  "model": "gpt-3.5-turbo",
-  "messages": [
-    {
-      "role": "system",
-      "content": "You are a helpful writing assistant..."
-    },
-    {
-      "role": "user", 
-      "content": "Continue this text naturally: [user's text]"
-    }
-  ]
+```typescript
+interface OpenAIRequest {
+  model: string;
+  messages: Array<{
+    role: 'system' | 'user' | 'assistant';
+    content: string;
+  }>;
+  max_tokens: number;
+  temperature: number;
 }
 ```
 
-## Compatibility
-
-### Browser Support
-- ✅ Chrome 88+
-- ✅ Edge 88+ (Chromium-based)
-- ❌ Firefox (different extension API)
-- ❌ Safari (different extension API)
-
-### Google Docs Features
-- ✅ Document editing
-- ✅ Real-time collaboration
-- ✅ Formatting and styling
-- ✅ Comments and suggestions
-- ✅ Version history
-
-### Writing Tools
-- ✅ Grammarly
-- ✅ LanguageTool
-- ✅ ProWritingAid
-- ✅ Hemingway Editor
-
-## Development
+## Development Workflow
 
 ### Local Development
-1. Make changes to source files
-2. Go to `chrome://extensions/`
-3. Click "Reload" on your extension
-4. Test in Google Docs
+1. Make changes to TypeScript source files
+2. Run tests: `npm test`
+3. Build extension: `npm run build:dev`
+4. Reload extension in Chrome
+5. Test in Google Docs
 
 ### Debugging
-- Use Chrome DevTools on the extension popup
-- Check background script logs in extension management
-- Monitor content script in Google Docs DevTools
+- **Source Maps**: Generated for debugging in Chrome DevTools
+- **Console Logs**: Available in extension background and content scripts
+- **Test Coverage**: Identify untested code paths
+- **Type Checking**: Catch errors at compile time
 
-### Building for Production
-1. Update version in `manifest.json`
-2. Create production icons
-3. Test thoroughly in different scenarios
-4. Package for Chrome Web Store
+### Code Quality
+- **ESLint**: Enforce coding standards
+- **TypeScript**: Compile-time error checking
+- **Prettier**: Code formatting (optional)
+- **Husky**: Pre-commit hooks (optional)
 
 ## Troubleshooting
 
-### Common Issues
-- **Suggestions not appearing**: Check API key and internet connection
-- **Conflicts with Grammarly**: Ensure extension is loaded after Grammarly
-- **Performance issues**: Check for excessive API calls or DOM manipulation
+### Build Issues
+- **Type Errors**: Run `npm run type-check` to identify issues
+- **Dependencies**: Ensure `npm install` completed successfully
+- **Node Version**: Use Node.js 16+ for compatibility
 
-### Debug Steps
-1. Check Chrome DevTools console for errors
-2. Verify API key is valid
-3. Test in incognito mode
-4. Check extension permissions
+### Test Issues
+- **Mock Setup**: Check `tests/setup.ts` for proper mocking
+- **Environment**: Ensure Jest environment is properly configured
+- **Async Tests**: Use proper async/await patterns
 
-## Security & Privacy
-
-- **API Key Storage**: Stored locally in Chrome sync storage
-- **Data Processing**: Text sent to OpenAI for suggestions only
-- **No Data Collection**: Extension doesn't collect or store user content
-- **Secure Communication**: All API calls use HTTPS
+### Runtime Issues
+- **Console Errors**: Check Chrome DevTools for error messages
+- **Permissions**: Verify extension permissions in Chrome
+- **API Key**: Ensure OpenAI API key is valid and configured
 
 ## Contributing
 
+### Development Setup
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+2. Install dependencies: `npm install`
+3. Run tests: `npm test`
+4. Make your changes
+5. Add tests for new functionality
+6. Ensure all tests pass
+7. Submit a pull request
+
+### Code Standards
+- **TypeScript**: Use strict typing
+- **Testing**: Maintain high test coverage
+- **Documentation**: Update README and inline comments
+- **Linting**: Ensure ESLint passes
 
 ## License
 
@@ -204,6 +306,7 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 - **Issues**: Report bugs on GitHub
 - **Feature Requests**: Use GitHub discussions
 - **Documentation**: Check this README and inline code comments
+- **Testing**: Run `npm test` to verify functionality
 
 ## Roadmap
 
@@ -213,7 +316,9 @@ This extension eliminates the need to manually prompt ChatGPT for writing sugges
 - [ ] Offline suggestion caching
 - [ ] Multi-language support
 - [ ] Team collaboration features
+- [ ] Performance optimization
+- [ ] Accessibility improvements
 
 ---
 
-**Note**: This extension is designed as a proof of concept and may require additional testing and refinement for production use.
+**Note**: This extension is built with TypeScript and modern development tools for maintainability and reliability. The comprehensive test suite ensures functionality works correctly across different scenarios.
