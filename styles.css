@@ -1,0 +1,128 @@
+/* AI Writing Assistant Styles */
+/* Designed to work alongside Google Docs and Grammarly */
+
+.ai-suggestion-box {
+  position: fixed;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  min-width: 300px;
+  z-index: 9999;
+  font-family: 'Google Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow: hidden;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #f8f9fa;
+}
+
+.suggestion-item.active {
+  background-color: #e8f0fe;
+  border-left: 3px solid #4285f4;
+}
+
+.suggestion-text {
+  flex: 1;
+  color: #202124;
+  font-weight: 400;
+}
+
+.suggestion-hint {
+  color: #5f6368;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 12px;
+  white-space: nowrap;
+}
+
+/* Ensure our styles don't interfere with Google Docs */
+.ai-suggestion-box * {
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ai-suggestion-box {
+    max-width: 90vw;
+    min-width: 280px;
+    left: 5vw !important;
+  }
+  
+  .suggestion-item {
+    padding: 10px 12px;
+  }
+  
+  .suggestion-hint {
+    display: none;
+  }
+}
+
+/* Dark mode support for Google Docs */
+@media (prefers-color-scheme: dark) {
+  .ai-suggestion-box {
+    background: #2d2e30;
+    border-color: #5f6368;
+    color: #e8eaed;
+  }
+  
+  .suggestion-item {
+    border-bottom-color: #3c4043;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #3c4043;
+  }
+  
+  .suggestion-item.active {
+    background-color: #174ea6;
+    border-left-color: #8ab4f8;
+  }
+  
+  .suggestion-text {
+    color: #e8eaed;
+  }
+  
+  .suggestion-hint {
+    color: #9aa0a6;
+  }
+}
+
+/* Grammarly compatibility - ensure our z-index doesn't conflict */
+.ai-suggestion-box {
+  z-index: 2147483647; /* Very high z-index to stay above Grammarly */
+}
+
+/* Hide suggestions when not needed */
+.ai-suggestion-box[style*="display: none"] {
+  pointer-events: none;
+}
